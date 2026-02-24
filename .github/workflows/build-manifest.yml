@@ -45,12 +45,13 @@ jobs:
           first=true
           for f in backgrounds/*.jpg backgrounds/*.jpeg backgrounds/*.png backgrounds/*.webp; do
             [ -f "$f" ] || continue
+            hash=$(sha256sum "$f" | cut -c1-8)
             if [ "$first" = true ]; then
               first=false
             else
               echo ',' >> site.manifest.json
             fi
-            printf '    "%s"' "$f" >> site.manifest.json
+            printf '    "%s?v=%s"' "$f" "$hash" >> site.manifest.json
           done
 
           echo '' >> site.manifest.json

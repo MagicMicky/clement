@@ -8,7 +8,7 @@ const ROTATION_INTERVAL = 8000;
 
 async function loadManifest() {
   try {
-    const res = await fetch('site.manifest.json');
+    const res = await fetch(`site.manifest.json?t=${Date.now()}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch {
