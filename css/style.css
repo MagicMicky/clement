@@ -1,0 +1,289 @@
+/* ============================================
+   Clement Savel — Portfolio Website
+   ============================================ */
+
+/* --- Design Tokens --- */
+:root {
+  --color-bg-overlay: rgba(0, 0, 0, 0.55);
+  --color-card-bg: rgba(255, 255, 255, 0.08);
+  --color-card-border: rgba(255, 255, 255, 0.12);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+  --color-download-bg: rgba(255, 255, 255, 0.1);
+  --color-download-hover: rgba(255, 255, 255, 0.2);
+  --color-divider: rgba(255, 255, 255, 0.15);
+
+  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --transition-fade: 1.5s ease-in-out;
+  --transition-fast: 0.25s ease;
+
+  --card-max-width: 440px;
+  --card-padding: 2.5rem 3rem;
+  --card-radius: 16px;
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background: #0a0a0a;
+  overflow-x: hidden;
+}
+
+/* --- Background Layers --- */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity var(--transition-fade);
+  will-change: opacity;
+}
+
+.bg-layer.active {
+  opacity: 1;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: var(--color-bg-overlay);
+}
+
+/* --- Card Container --- */
+.card-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 2rem;
+}
+
+/* --- Card --- */
+.card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  max-width: var(--card-max-width);
+  width: 100%;
+  text-align: center;
+  animation: cardEnter 0.8s ease-out both;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Card Header --- */
+.card__name {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.card__tagline {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+/* --- Divider --- */
+.card__divider {
+  width: 40px;
+  height: 1px;
+  background: var(--color-divider);
+  margin: 1.5rem auto;
+}
+
+/* --- Downloads --- */
+.card__downloads {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.download-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  background: var(--color-download-bg);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.download-item:hover {
+  background: var(--color-download-hover);
+  transform: translateY(-1px);
+}
+
+.download-item:active {
+  transform: translateY(0);
+}
+
+.download-item__label {
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.download-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.download-item__icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.download-item:hover .download-item__icon {
+  opacity: 1;
+}
+
+/* --- Empty State --- */
+.card__empty {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  padding: 1rem 0;
+  letter-spacing: 0.04em;
+}
+
+/* --- Footer --- */
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding-top: 0.25rem;
+}
+
+.card__footer a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.card__footer a:hover {
+  color: var(--color-text-secondary);
+}
+
+.card__footer-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.card__footer-separator {
+  width: 1px;
+  height: 12px;
+  background: var(--color-divider);
+}
+
+/* --- Background Indicator Dots --- */
+.bg-indicators {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bg-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.bg-indicator.active {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  :root {
+    --card-padding: 2rem 1.5rem;
+    --card-radius: 14px;
+  }
+
+  .card__name {
+    font-size: 1.6rem;
+    letter-spacing: 0.14em;
+  }
+
+  .card__tagline {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --card-padding: 1.5rem 1.25rem;
+    --card-radius: 12px;
+  }
+
+  .card__name {
+    font-size: 1.4rem;
+  }
+
+  .card-container {
+    padding: 1rem;
+  }
+}

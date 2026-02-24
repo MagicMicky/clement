@@ -1,0 +1,69 @@
+name: Build Manifest
+
+on:
+  push:
+    paths:
+      - 'portfolios/**'
+      - 'backgrounds/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate manifest
+        run: |
+          # Build site.manifest.json from folder contents
+          # Note: only processes files committed to the repo (no untrusted input)
+          echo '{' > site.manifest.json
+          echo '  "portfolios": [' >> site.manifest.json
+
+          first=true
+          for f in portfolios/*.pdf; do
+            [ -f "$f" ] || continue
+            name=$(basename "$f" .pdf)
+            # Replace hyphens/underscores with spaces, title-case each word
+            label=$(echo "$name" | sed 's/[-_]/ /g' | sed 's/\b\(.\)/\u\1/g')
+            size=$(du -h "$f" | cut -f1)
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo ',' >> site.manifest.json
+            fi
+            printf '    {"filename": "%s", "label": "%s", "size": "%s"}' "$(basename "$f")" "$label" "${size}B" >> site.manifest.json
+          done
+
+          echo '' >> site.manifest.json
+          echo '  ],' >> site.manifest.json
+          echo '  "backgrounds": [' >> site.manifest.json
+
+          first=true
+          for f in backgrounds/*.jpg backgrounds/*.jpeg backgrounds/*.png backgrounds/*.webp; do
+            [ -f "$f" ] || continue
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo ',' >> site.manifest.json
+            fi
+            printf '    "%s"' "$f" >> site.manifest.json
+          done
+
+          echo '' >> site.manifest.json
+          echo '  ]' >> site.manifest.json
+          echo '}' >> site.manifest.json
+
+          echo "Generated manifest:"
+          cat site.manifest.json
+
+      - name: Commit manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site.manifest.json
+          git diff --cached --quiet || git commit -m "chore: update site manifest"
+          git push

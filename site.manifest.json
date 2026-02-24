@@ -1,0 +1,11 @@
+{
+  "portfolios": [
+    {"filename": "Editorial-2025.pdf", "label": "Editorial 2025", "size": "2.4 MB"},
+    {"filename": "Commercial-Book.pdf", "label": "Commercial Book", "size": "3.1 MB"}
+  ],
+  "backgrounds": [
+    "backgrounds/01.jpg",
+    "backgrounds/02.jpg",
+    "backgrounds/03.jpg"
+  ]
+}
