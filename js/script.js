@@ -57,7 +57,8 @@ function renderDownloads(portfolios, container) {
   for (const p of portfolios) {
     const link = document.createElement('a');
     link.className = 'download-item';
-    link.href = `portfolios/${encodeURIComponent(p.filename)}`;
+    const cacheBust = p.hash ? `?v=${encodeURIComponent(p.hash)}` : '';
+    link.href = `portfolios/${encodeURIComponent(p.filename)}${cacheBust}`;
     link.download = '';
 
     const label = document.createElement('span');

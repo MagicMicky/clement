@@ -35,7 +35,8 @@ jobs:
             else
               echo ',' >> site.manifest.json
             fi
-            printf '    {"filename": "%s", "label": "%s", "size": "%s"}' "$(basename "$f")" "$label" "${size}B" >> site.manifest.json
+            hash=$(sha256sum "$f" | cut -c1-8)
+            printf '    {"filename": "%s", "label": "%s", "size": "%s", "hash": "%s"}' "$(basename "$f")" "$label" "${size}B" "$hash" >> site.manifest.json
           done
 
           echo '' >> site.manifest.json
