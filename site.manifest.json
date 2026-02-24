@@ -1,7 +1,7 @@
 {
   "portfolios": [
-    {"filename": "Editorial-2025.pdf", "label": "Editorial 2025", "size": "2.4 MB"},
-    {"filename": "Commercial-Book.pdf", "label": "Commercial Book", "size": "3.1 MB"}
+    {"filename": "Commercial-Book.pdf", "label": "Commercial Book", "size": "4.0KB"},
+    {"filename": "Editorial-2025.pdf", "label": "Editorial 2025", "size": "4.0KB"}
   ],
   "backgrounds": [
     "backgrounds/01.jpg",
